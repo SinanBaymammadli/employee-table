@@ -1,16 +1,6 @@
 import { includes } from "../../utils";
 import { IEmployee, IEmployeeFilter } from "./models";
 
-export function isDifferent(oldEmployee: IEmployee, newEmployee: IEmployee): boolean {
-  return (
-    oldEmployee.name !== newEmployee.name ||
-    oldEmployee.surname !== newEmployee.surname ||
-    oldEmployee.position !== newEmployee.position ||
-    oldEmployee.dateOfBirth !== newEmployee.dateOfBirth ||
-    oldEmployee.phoneNumber !== newEmployee.phoneNumber
-  );
-}
-
 export function filterEmployeeList(
   employeeList: IEmployee[],
   { name, surname, position, phoneNumber, dateOfBirth }: IEmployeeFilter

@@ -32,3 +32,22 @@ export function getPaginatedItems<T>(items: T[], page = 1, pageSize = 50) {
 export function includes(a: string, b: string) {
   return a.toLowerCase().includes(b.toLowerCase());
 }
+
+export function isEqual(a: Record<any, any>, b: Record<any, any>) {
+  const aProps = Object.getOwnPropertyNames(a);
+  const bProps = Object.getOwnPropertyNames(b);
+
+  if (aProps.length !== bProps.length) {
+    return false;
+  }
+
+  for (var i = 0; i < aProps.length; i++) {
+    const propName = aProps[i];
+
+    if (a[propName] !== b[propName]) {
+      return false;
+    }
+  }
+
+  return true;
+}

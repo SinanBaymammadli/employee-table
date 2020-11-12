@@ -31,118 +31,120 @@ const getSurnameInput = async () => {
   return nameInputs[1];
 };
 
-test("Marks row as deleted when clicking delete button", async () => {
-  renderEmployeeTable();
-  const deleteButton = await getFirstDeleteButton();
+describe("EmployeeTable", () => {
+  test("Marks row as deleted when clicking delete button", async () => {
+    renderEmployeeTable();
+    const deleteButton = await getFirstDeleteButton();
 
-  fireEvent.click(deleteButton);
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    fireEvent.click(deleteButton);
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [employeeData[0]],
-      updated: [],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [employeeData[0]],
+        updated: [],
+      });
     });
   });
-});
 
-test("Removes deleted mark when clicking undelete button", async () => {
-  renderEmployeeTable();
-  const deleteButton = await getFirstDeleteButton();
+  test("Removes deleted mark when clicking undelete button", async () => {
+    renderEmployeeTable();
+    const deleteButton = await getFirstDeleteButton();
 
-  fireEvent.click(deleteButton);
-  fireEvent.click(deleteButton);
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    fireEvent.click(deleteButton);
+    fireEvent.click(deleteButton);
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [],
-      updated: [],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [],
+        updated: [],
+      });
     });
   });
-});
 
-test("Marks row as updated if any value changes", async () => {
-  renderEmployeeTable();
-  const nameInput = await getNameInput();
+  test("Marks row as updated if any value changes", async () => {
+    renderEmployeeTable();
+    const nameInput = await getNameInput();
 
-  const changedValue = "Test123";
+    const changedValue = "Test123";
 
-  fireEvent.change(nameInput, { target: { value: changedValue } });
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    fireEvent.change(nameInput, { target: { value: changedValue } });
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [],
-      updated: [{ ...employeeData[0], name: changedValue }],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [],
+        updated: [{ ...employeeData[0], name: changedValue }],
+      });
     });
   });
-});
 
-test("Doesnt mark row as updated if any value changes and returns back", async () => {
-  renderEmployeeTable();
-  const nameInput = await getNameInput();
+  test("Doesnt mark row as updated if any value changes and returns back", async () => {
+    renderEmployeeTable();
+    const nameInput = await getNameInput();
 
-  const changedValue = "Test123";
+    const changedValue = "Test123";
 
-  fireEvent.change(nameInput, { target: { value: changedValue } });
-  fireEvent.change(nameInput, { target: { value: employeeData[0].name } });
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    fireEvent.change(nameInput, { target: { value: changedValue } });
+    fireEvent.change(nameInput, { target: { value: employeeData[0].name } });
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [],
-      updated: [],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [],
+        updated: [],
+      });
     });
   });
-});
 
-test("If changed row marked as deleted it should only be in deleted status", async () => {
-  renderEmployeeTable();
-  const nameInput = await getNameInput();
+  test("If changed row marked as deleted it should only be in deleted status", async () => {
+    renderEmployeeTable();
+    const nameInput = await getNameInput();
 
-  const changedValue = "Test123";
-  fireEvent.change(nameInput, { target: { value: changedValue } });
+    const changedValue = "Test123";
+    fireEvent.change(nameInput, { target: { value: changedValue } });
 
-  const deleteButton = await getFirstDeleteButton();
-  fireEvent.click(deleteButton);
+    const deleteButton = await getFirstDeleteButton();
+    fireEvent.click(deleteButton);
 
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [{ ...employeeData[0], name: changedValue }],
-      updated: [],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [{ ...employeeData[0], name: changedValue }],
+        updated: [],
+      });
     });
   });
-});
 
-test("Reset button resets everything back to initial state", async () => {
-  renderEmployeeTable();
-  const nameInput = await getNameInput();
-  fireEvent.change(nameInput, { target: { value: "Test123" } });
+  test("Reset button resets everything back to initial state", async () => {
+    renderEmployeeTable();
+    const nameInput = await getNameInput();
+    fireEvent.change(nameInput, { target: { value: "Test123" } });
 
-  const surnameInput = await getSurnameInput();
-  fireEvent.change(surnameInput, { target: { value: "TestSurname" } });
+    const surnameInput = await getSurnameInput();
+    fireEvent.change(surnameInput, { target: { value: "TestSurname" } });
 
-  const deleteButton = await getFirstDeleteButton();
-  fireEvent.click(deleteButton);
+    const deleteButton = await getFirstDeleteButton();
+    fireEvent.click(deleteButton);
 
-  const resetButton = getResetButton();
-  fireEvent.click(resetButton);
+    const resetButton = getResetButton();
+    fireEvent.click(resetButton);
 
-  const submitButton = getSubmitButton();
-  fireEvent.click(submitButton);
+    const submitButton = getSubmitButton();
+    fireEvent.click(submitButton);
 
-  await waitFor(() => {
-    expect(mockSubmit).toBeCalledWith({
-      deleted: [],
-      updated: [],
+    await waitFor(() => {
+      expect(mockSubmit).toBeCalledWith({
+        deleted: [],
+        updated: [],
+      });
     });
   });
 });

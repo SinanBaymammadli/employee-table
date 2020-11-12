@@ -13,13 +13,13 @@ import {
 import React from "react";
 import { EmployeeTableFilter } from "./EmployeeTableFilter";
 import { IEmployee, IEmployeeFilter, IEmployeeForm, IEmployeeFormRequest } from "./models";
-import { filterEmployeeList, isDifferent } from "./utils";
+import { filterEmployeeList } from "./utils";
 import { Formik, Form, FieldArray } from "formik";
 import * as yup from "yup";
 import { Pagination } from "@material-ui/lab";
 import { EmployeeTableSkeleton } from "./EmployeeTableSkeleton";
 import { EmployeeTableItem } from "./EmployeeTableItem";
-import { getPaginatedItems, useSearchParams } from "../../utils";
+import { getPaginatedItems, isEqual, useSearchParams } from "../../utils";
 
 const schema = yup.object().shape<IEmployeeForm>({
   employees: yup
@@ -53,19 +53,23 @@ interface IProps {
   onSubmit: (form: IEmployeeFormRequest) => void;
 }
 
+const DEFAULT_PAGE = 1;
+const DEFAULT_COUNT = 5;
+
 export function EmployeeTable({ initialValues, onSubmit, isLoading }: IProps) {
   const [filter, setFilter] = useSearchParams<IEmployeeFilter>();
-  const page = filter.page ?? 1;
-  const count = filter.count ?? 5;
+  const page = filter.page ?? DEFAULT_PAGE;
+  const count = filter.count ?? DEFAULT_COUNT;
 
   function handleFormSubmit(form: IEmployee[]) {
-    const deleted = form.filter((f) => f.deleted).map(({ deleted, ...rest }) => rest);
+    const deleted = form.filter((e) => e.deleted).map(({ deleted, ...rest }) => rest);
     const updated = form
-      .filter((f) => !f.deleted)
-      .filter((f) => {
-        const old = initialValues.employees.find((e) => e.id === f.id);
+      .filter((e) => !e.deleted)
+      .map(({ deleted, ...rest }) => rest)
+      .filter((e) => {
+        const old = initialValues.employees.find((i) => i.id === e.id);
         if (!old) return false;
-        return isDifferent(old, f);
+        return !isEqual(old, e);
       });
 
     onSubmit({ deleted, updated });
