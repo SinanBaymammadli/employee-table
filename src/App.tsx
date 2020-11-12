@@ -10,9 +10,7 @@ export function App() {
       <AppBar position="absolute">
         <Toolbar>
           <Grid container justify="space-between" alignItems="center">
-            <Typography component="h1" variant="h6" color="inherit" noWrap>
-              App
-            </Typography>
+            <Typography variant="h6">Employee table</Typography>
 
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
