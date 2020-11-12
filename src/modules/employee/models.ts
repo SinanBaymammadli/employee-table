@@ -16,11 +16,11 @@ export interface IEmployeeFilter extends Partial<IEmployeeBase> {
   count: number;
 }
 
-export interface IEmployeeForm {
+export interface IEmployeeFormData {
   employees: IEmployee[];
 }
 
-export interface IEmployeeFormRequest {
+export interface IEmployeeForm {
   updated: IEmployee[];
   deleted: IEmployee[];
 }

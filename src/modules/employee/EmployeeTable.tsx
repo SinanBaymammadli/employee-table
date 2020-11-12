@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { EmployeeTableFilter } from "./EmployeeTableFilter";
-import { IEmployee, IEmployeeFilter, IEmployeeForm, IEmployeeFormRequest } from "./models";
+import { IEmployee, IEmployeeFilter, IEmployeeForm, IEmployeeFormData } from "./models";
 import { filterEmployeeList } from "./utils";
 import { Formik, Form, FieldArray } from "formik";
 import * as yup from "yup";
@@ -21,7 +21,7 @@ import { EmployeeTableSkeleton } from "./EmployeeTableSkeleton";
 import { EmployeeTableItem } from "./EmployeeTableItem";
 import { getPaginatedItems, isEqual, useSearchParams } from "../../utils";
 
-const schema = yup.object().shape<IEmployeeForm>({
+const schema = yup.object().shape<IEmployeeFormData>({
   employees: yup
     .array<IEmployee>()
     .of(
@@ -48,9 +48,9 @@ const schema = yup.object().shape<IEmployeeForm>({
 });
 
 interface IProps {
-  initialValues: IEmployeeForm;
+  initialValues: IEmployeeFormData;
   isLoading?: boolean;
-  onSubmit: (form: IEmployeeFormRequest) => void;
+  onSubmit: (form: IEmployeeForm) => void;
 }
 
 const DEFAULT_PAGE = 1;

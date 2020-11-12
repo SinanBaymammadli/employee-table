@@ -1,12 +1,12 @@
 import { TableRow, TableCell, TextField, Button } from "@material-ui/core";
 import { FormikProps } from "formik";
 import React from "react";
-import { IEmployee, IEmployeeForm } from "./models";
+import { IEmployee, IEmployeeFormData } from "./models";
 
 interface IProps {
   employee: IEmployee;
-  formikProps: FormikProps<IEmployeeForm>;
-  initialValues: IEmployeeForm;
+  formikProps: FormikProps<IEmployeeFormData>;
+  initialValues: IEmployeeFormData;
 }
 
 export function EmployeeTableItem({ employee, formikProps, initialValues }: IProps) {
