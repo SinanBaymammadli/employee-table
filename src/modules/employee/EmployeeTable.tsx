@@ -53,7 +53,7 @@ interface IProps {
   onSubmit: (form: IEmployeeFormRequest) => void;
 }
 
-export function EmployeeForm({ initialValues, onSubmit, isLoading }: IProps) {
+export function EmployeeTable({ initialValues, onSubmit, isLoading }: IProps) {
   const [filter, setFilter] = useSearchParams<IEmployeeFilter>();
   const page = filter.page ?? 1;
   const count = filter.count ?? 5;

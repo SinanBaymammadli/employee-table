@@ -2,7 +2,7 @@ import { Box, Grid, Paper } from "@material-ui/core";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { QUERY_KEYS } from "../../queryKeys";
-import { EmployeeForm } from "./EmployeeForm";
+import { EmployeeTable } from "./EmployeeTable";
 import { employeeService } from "./employeeService";
 import { IEmployeeFormRequest } from "./models";
 
@@ -16,7 +16,7 @@ export function EmployeePage() {
 
   return (
     <>
-      <EmployeeForm initialValues={{ employees: data ?? [] }} onSubmit={onSubmit} isLoading={isLoading} />
+      <EmployeeTable initialValues={{ employees: data ?? [] }} onSubmit={onSubmit} isLoading={isLoading} />
 
       <Box pt={4}>
         <Grid container spacing={2}>

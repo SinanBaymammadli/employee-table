@@ -87,7 +87,7 @@ export function EmployeeTableItem({ employee, formikProps, initialValues }: IPro
             setFieldValue(`${employeeField}.deleted`, isDeleted ? "" : true);
           }}
         >
-          {isDeleted ? "Undelete" : "Delete"}
+          {isDeleted ? "Restore" : "Delete"}
         </Button>
       </TableCell>
     </TableRow>

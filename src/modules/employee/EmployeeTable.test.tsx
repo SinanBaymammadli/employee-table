@@ -1,12 +1,12 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "../../setupTests";
-import { EmployeeForm } from "./EmployeeForm";
+import { EmployeeTable } from "./EmployeeTable";
 import { employeeData } from "./mocks";
 
 const mockSubmit = jest.fn();
 
 const renderEmployeeTable = () =>
-  render(<EmployeeForm initialValues={{ employees: employeeData }} onSubmit={mockSubmit} />);
+  render(<EmployeeTable initialValues={{ employees: employeeData }} onSubmit={mockSubmit} />);
 
 const getFirstDeleteButton = async () => {
   const deleteButtons = await screen.findAllByText(/delete/i);
