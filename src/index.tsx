@@ -1,17 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { CssBaseline } from "@material-ui/core";
+import React from "react";
+import ReactDOM from "react-dom";
+import { ReactQueryConfig, ReactQueryConfigProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import { ReactQueryDevtools } from "react-query-devtools";
+import { App } from "./App";
+import "./index.css";
+
+// if (process.env.NODE_ENV === "development") {
+const { worker } = require("./mocks/browser");
+worker.start();
+// }
+
+const config: ReactQueryConfig = {
+  queries: {
+    refetchOnWindowFocus: false,
+    retry: false,
+  },
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ReactQueryConfigProvider config={config}>
+      <ReactQueryDevtools />
+      <CssBaseline />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ReactQueryConfigProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

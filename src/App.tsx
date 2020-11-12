@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import { Box, AppBar, Toolbar, Grid, Typography, Badge, Container, IconButton } from "@material-ui/core";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import { EmployeePage } from "./modules/employee/EmployeePage";
 
-function App() {
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppBar position="absolute">
+        <Toolbar>
+          <Grid container justify="space-between" alignItems="center">
+            <Typography component="h1" variant="h6" color="inherit" noWrap>
+              App
+            </Typography>
+
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+
+      <main>
+        <Box py={4} />
+        <Box p={4}>
+          <Container maxWidth="lg">
+            <Switch>
+              <Route path="/">
+                <EmployeePage />
+              </Route>
+            </Switch>
+          </Container>
+        </Box>
+      </main>
+    </>
   );
 }
-
-export default App;
