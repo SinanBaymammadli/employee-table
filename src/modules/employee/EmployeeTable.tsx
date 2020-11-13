@@ -38,11 +38,7 @@ const schema = yup.object().shape<IEmployeeFormData>({
           surname: yup.string().required(requiredMsg),
           position: yup.string().required(requiredMsg),
           dateOfBirth: yup.string().matches(dateRegex, wrongFormatMsg).required(requiredMsg),
-          phoneNumber: yup
-            .string()
-            .min(10, wrongFormatMsg)
-            .matches(phoneNumberRegex, wrongFormatMsg)
-            .required(requiredMsg),
+          phoneNumber: yup.string().matches(phoneNumberRegex, wrongFormatMsg).required(requiredMsg),
         })
         .required()
     )
