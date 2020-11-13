@@ -8,7 +8,7 @@ import { IEmployeeForm } from "./models";
 
 export function EmployeePage() {
   const { data, isLoading } = useQuery(QUERY_KEYS.employeeList, () => employeeService.getList());
-  const [formData, setFormData] = useState<IEmployeeForm>({ updated: [], deleted: [] });
+  const [formData, setFormData] = useState<IEmployeeForm>({ deleted: [], updated: [] });
 
   function onSubmit(form: IEmployeeForm) {
     setFormData(form);

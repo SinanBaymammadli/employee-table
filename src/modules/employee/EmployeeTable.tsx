@@ -21,6 +21,11 @@ import { EmployeeTableSkeleton } from "./EmployeeTableSkeleton";
 import { EmployeeTableItem } from "./EmployeeTableItem";
 import { getPaginatedItems, isEqual, useSearchParams } from "../../utils";
 
+const dateRegex = /^(?:(0[1-9]|[12][0-9]|3[01])[-.](0[1-9]|1[012])[-.](19|20)[0-9]{2})$/;
+const phoneNumberRegex = /\d{3}-\d{3}-\d{2}-\d{2}/;
+const requiredMsg = "Field is required";
+const wrongFormatMsg = "Wrong format";
+
 const schema = yup.object().shape<IEmployeeFormData>({
   employees: yup
     .array<IEmployee>()
@@ -28,19 +33,16 @@ const schema = yup.object().shape<IEmployeeFormData>({
       yup
         .object()
         .shape<IEmployee>({
-          id: yup.string().required(),
-          name: yup.string().required("Field is required"),
-          surname: yup.string().required("Field is required"),
-          position: yup.string().required("Field is required"),
-          dateOfBirth: yup
-            .string()
-            .matches(/^(?:(0[1-9]|[12][0-9]|3[01])[-.](0[1-9]|1[012])[-.](19|20)[0-9]{2})$/, "Wrong format")
-            .required("Field is required"),
+          id: yup.string().required(requiredMsg),
+          name: yup.string().required(requiredMsg),
+          surname: yup.string().required(requiredMsg),
+          position: yup.string().required(requiredMsg),
+          dateOfBirth: yup.string().matches(dateRegex, wrongFormatMsg).required(requiredMsg),
           phoneNumber: yup
             .string()
-            .min(10, "Wrong format")
-            .matches(/\d{3}-\d{3}-\d{2}-\d{2}/, "Wrong format")
-            .required("Field is required"),
+            .min(10, wrongFormatMsg)
+            .matches(phoneNumberRegex, wrongFormatMsg)
+            .required(requiredMsg),
         })
         .required()
     )

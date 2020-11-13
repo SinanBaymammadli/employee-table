@@ -9,7 +9,7 @@ export function useSearchParams<T>(defaultParams?: T): [T, (params?: Partial<T>)
   function setSearchParams(p?: Partial<T>): void {
     history.push({
       ...location,
-      search: queryString.stringify({ ...p } as any),
+      search: queryString.stringify(p as any),
     });
   }
 
